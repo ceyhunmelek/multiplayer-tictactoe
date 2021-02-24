@@ -8,21 +8,21 @@ import {ToastContainer} from "react-toastify";
 import store from "./redux";
 
 ReactDOM.render(
-	<Provider store={store}>
-		<React.StrictMode>
-			<App />
-			<ToastContainer
-				position="bottom-center"
-				autoClose={3000}
-				hideProgressBar={false}
-				newestOnTop
-				closeOnClick
-				rtl={false}
-				pauseOnFocusLoss
-				draggable
-				pauseOnHover
-			/>
-		</React.StrictMode>
-	</Provider>,
-	document.getElementById("root")
+  <Provider store={store}>
+    <React.StrictMode>
+      <App />
+      <ToastContainer
+        position="bottom-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+    </React.StrictMode>
+  </Provider>,
+  document.getElementById("root")
 );

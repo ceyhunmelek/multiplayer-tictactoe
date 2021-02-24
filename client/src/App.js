@@ -1,14 +1,17 @@
 import React from "react";
-import {setNick, joinRoom, createRoom} from "./socket";
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import Lobby from "./components/Lobby";
+import Game from "./components/Game";
 
 const App = () => {
-	return <div>
-		<label>nick</label>
-		<input onKeyDown={e => e.key === "Enter" && setNick(e.target.value)} />
-		<label>join room</label>
-		<input onKeyDown={e => e.key === "Enter" && joinRoom(e.target.value)} />
-		<button onClick={createRoom} >Create Room</button>
-	</div>;
+  return <div className="flex flex-col h-screen w-100 items-center justify-center">
+    <Router>
+      <Switch>
+        <Route path={"/game/:id"} component={Game} exact/>
+        <Route path={"/"} component={Lobby}/>
+      </Switch>
+    </Router>
+  </div>;
 };
 
 export default App;
