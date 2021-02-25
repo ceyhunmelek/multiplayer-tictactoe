@@ -22,3 +22,5 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "cm-s-ttt-client"
           heroku_email: ${{secrets.HEROKU_EMAIL}}
+        env:
+          REACT_APP_SOCKET_URL: ${{secrets.REACT_APP_SOCKET_URL}}
