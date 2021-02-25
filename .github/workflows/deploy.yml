@@ -16,6 +16,9 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "cm-s-ttt-server"
           heroku_email: ${{secrets.HEROKU_EMAIL}}
+        env:
+          HD_PROJECT_PATH: "server"
+          HD_CLIENT_URL: ${{secrets.CLIENT_URL}}
       - name: Deploy frontend
         uses: akhileshns/heroku-deploy@v3.12.12
         with:
@@ -23,4 +26,5 @@ jobs:
           heroku_app_name: "cm-s-ttt-client"
           heroku_email: ${{secrets.HEROKU_EMAIL}}
         env:
+          HD_PROJECT_PATH: "client"
           HD_REACT_APP_SOCKET_URL: ${{secrets.REACT_APP_SOCKET_URL}}
