@@ -1,0 +1,30 @@
+name: Deploy to Heroku
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Deploy backend
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "cm-s-ttt-server"
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+        env:
+          CLIENT_URL: ${{secrets.CLIENT_URL}}
+          PROJECT_PATH: "server"
+      - name: Deploy frontend
+        uses: akhileshns/heroku-deploy@v3.12.12
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "cm-s-ttt-client"
+          heroku_email: ${{secrets.HEROKU_EMAIL}}
+        env:
+          REACT_APP_SOCKET_URL: ${{secrets.SOCKET_URL}}
+          PROJECT_PATH: "client"
