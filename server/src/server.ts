@@ -48,7 +48,8 @@ io.on("connection", (socket: Socket) => {
   socket.on("disconnect", () => {
     const index = users.findIndex(user => user.socket.id === socket.id);
     if(index !== -1) users.splice(index,1);
-    // USER DISCONNECTED ROOm
+    const userGames = games.filter(game => game.players.some(player => player.socket.id === socket.id));
+    userGames.forEach(game => game.players.forEach(player => player.socket.id !== socket.id && player.socket.emit("USER_DISCONNECTED")));
   });
 });
 

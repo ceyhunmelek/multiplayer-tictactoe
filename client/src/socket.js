@@ -5,13 +5,12 @@ import {setIdState, setNickState} from "./redux/user/actions";
 import {
   setBoardState,
   setGameIDState,
-  setGameStatusState, setOpponentState,
+  setGameStatusState, setOpponentState, setScoreState,
   setTurnState
 } from "./redux/game/actions";
 
 const ENDPOINT = "http://localhost:8081";
-
-const socket = io(ENDPOINT).connect();
+const socket = process.env.NODE_ENV === "production" ? io().connect() : io(ENDPOINT).connect();
 
 socket.on("NICK_EXISTS", () => {
   toast.error("Nickname already in use");
@@ -29,19 +28,19 @@ socket.on("ROOM_IS_NOT_EXIST", () => {
 });
 socket.on("JOINED_GAME", res => {
   store.dispatch(setGameIDState(res));
-  toast.success("Joined the room");
+  toast.warn("Joined the room");
 });
 socket.on("WAITING_FOR_OPPONENT", () => {
   store.dispatch(setGameStatusState(false));
 });
-socket.on("GAME_STARTED", ({ board, players, turn }) => {
+socket.on("GAME_STARTED", ({ board, players, turn, score}) => {
   const state = store.getState();
-  console.log(players);
   store.dispatch(setGameStatusState(true));
   store.dispatch(setBoardState(board));
   store.dispatch(setTurnState(state.user.id === turn));
   store.dispatch(setOpponentState(players.find(player => player.id !== state.user.id)));
-  toast.success("Game started.");
+  store.dispatch(setScoreState(score));
+  toast.success("Round started.");
 });
 socket.on("NOT_YOUR_TURN", () => {
   toast.warn("It is not your turn!");
@@ -53,6 +52,20 @@ socket.on("MOVED", ({ turn, board }) => {
   const state = store.getState();
   store.dispatch(setBoardState(board));
   store.dispatch(setTurnState(state.user.id === turn));
+});
+socket.on("GAME_END", ({ draw, winner, score }) => {
+  if(draw){
+    toast.warn("DRAW!");
+  }else {
+    socket.id === winner ? toast.success("YOU WON!") : toast.error("YOU LOSE!");
+    store.dispatch(setGameStatusState(false));
+  }
+  store.dispatch(setScoreState(score));
+});
+socket.on("USER_DISCONNECTED", () => {
+  toast.warn("Your opponent ran away");
+  store.dispatch(setGameIDState(undefined));
+  store.dispatch(setScoreState(undefined));
 });
 
 export const setNick = (nick) => socket.emit("SET_NICK", nick);
