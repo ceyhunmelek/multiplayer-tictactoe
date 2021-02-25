@@ -12,7 +12,7 @@ const Lobby = () => {
   const [roomID, setRoomID] = useState("");
   return <div className="flex flex-col md:w-1/3 space-y-3">
     <div className="flex space-x-3">
-      <input type="text" placeholder="Nickname" disabled={user.nick} value={nickInput} onChange={e => setNickInput(e.target.value)} onKeyDown={e => !user.nick && e.key === "Enter" && setNick(nickInput)}
+      <input type="text" placeholder="Nickname" disabled={user.nick} value={user.nick || nickInput} onChange={e => setNickInput(e.target.value)} onKeyDown={e => !user.nick && e.key === "Enter" && setNick(nickInput)}
         className="p-3 placeholder-gray-400 text-gray-700 relative bg-white bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline flex-auto"
       />
       {
@@ -31,7 +31,7 @@ const Lobby = () => {
           Create Room
         </button>
         <div className="flex space-x-3">
-          <input type="text" placeholder="Room ID" value={roomID} onChange={e => setRoomID(e.target.value)}
+          <input type="text" placeholder="Room ID" value={roomID} onChange={e => setRoomID(e.target.value)} onKeyDown={e => e.key === "Enter" && joinRoom(roomID)}
             className="p-3 placeholder-gray-400 text-gray-700 relative bg-white bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline flex-auto"
           />
           <button type="button" onClick={() => joinRoom(roomID)}
