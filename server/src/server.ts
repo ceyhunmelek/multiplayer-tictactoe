@@ -40,6 +40,11 @@ io.on("connection", (socket: Socket) => {
       socket.emit("ROOM_IS_NOT_EXIST");
     }
   });
+  socket.on("MOVE", (roomID, move) => {
+    const game = games.find(game => game.id === roomID);
+    const user = users.find(user => user.socket.id === socket.id);
+    if(game && user) game.move(user, move);
+  });
   socket.on("disconnect", () => {
     const index = users.findIndex(user => user.socket.id === socket.id);
     if(index !== -1) users.splice(index,1);
