@@ -13,14 +13,14 @@ ReactDOM.render(
       <App />
       <ToastContainer
         position="bottom-center"
-        autoClose={3000}
+        autoClose={1500}
         hideProgressBar={false}
         newestOnTop
         closeOnClick
         rtl={false}
-        pauseOnFocusLoss
+        pauseOnFocusLoss={false}
         draggable
-        pauseOnHover
+        pauseOnHover={false}
       />
     </React.StrictMode>
   </Provider>,
