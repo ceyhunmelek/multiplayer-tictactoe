@@ -10,8 +10,8 @@ const Lobby = () => {
   useEffect(() => game.id && history.push(`/game/${game.id}`), [game]);
   const [nickInput, setNickInput] = useState("");
   const [roomID, setRoomID] = useState("");
-  return <div className="flex flex-col md:w-1/3 gap-3">
-    <div className="flex gap-3">
+  return <div className="flex flex-col md:w-1/3 space-y-3">
+    <div className="flex space-x-3">
       <input type="text" placeholder="Nickname" disabled={user.nick} value={nickInput} onChange={e => setNickInput(e.target.value)} onKeyDown={e => !user.nick && e.key === "Enter" && setNick(nickInput)}
         className="p-3 placeholder-gray-400 text-gray-700 relative bg-white bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline flex-auto"
       />
@@ -30,7 +30,7 @@ const Lobby = () => {
           className="bg-yellow-700 rounded p-2 inline-flex items-center justify-center text-white hover:bg-yellow-800 focus:outline-none mt-10">
           Create Room
         </button>
-        <div className="flex gap-3">
+        <div className="flex space-x-3">
           <input type="text" placeholder="Room ID" value={roomID} onChange={e => setRoomID(e.target.value)}
             className="p-3 placeholder-gray-400 text-gray-700 relative bg-white bg-white rounded text-sm shadow outline-none focus:outline-none focus:shadow-outline flex-auto"
           />

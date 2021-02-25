@@ -4,7 +4,7 @@ import Lobby from "./components/Lobby";
 import Game from "./components/Game";
 
 const App = () => {
-  return <div className="flex flex-col h-screen w-100 items-center justify-center">
+  return <div className="flex flex-col h-screen w-100 items-center justify-center p-10">
     <Router>
       <Switch>
         <Route path={"/game/:id"} component={Game} exact/>
