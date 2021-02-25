@@ -10,7 +10,7 @@ import {
 } from "./redux/game/actions";
 
 const ENDPOINT = process.env.REACT_APP_SOCKET_URL || "http://localhost:8081";
-const socket = process.env.NODE_ENV === "production" ? io().connect() : io(ENDPOINT).connect();
+const socket = io(ENDPOINT).connect();
 
 socket.on("NICK_EXISTS", () => {
   toast.error("Nickname already in use");
