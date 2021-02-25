@@ -15,6 +15,7 @@ const io = new Server(http, {
 interface UserInterface { socket: Socket, nick: string }
 const games: TicTacToe[] = [];
 const users: UserInterface[] = [];
+console.log(process.env.CLIENT_URL);
 
 io.on("connection", (socket: Socket) => {
   socket.on("SET_NICK", (nick) => {
