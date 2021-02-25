@@ -11,6 +11,7 @@ const Game = () => {
   return <div className="w-full md:w-1/2 flex flex-col space-y-10">
     <Players />
     { game.board && <Board /> }
+    { !game.board && <div className="text-center bg-yellow-800 rounded text-white p-3">Room ID: {game.id}</div> }
   </div>;
 };
 
