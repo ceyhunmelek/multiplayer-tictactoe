@@ -54,6 +54,6 @@ io.on("connection", (socket: Socket) => {
   });
 });
 
-http.listen(8081, () => {
+http.listen(process.env.PORT || 8081, () => {
   console.log("Listening");
 });
